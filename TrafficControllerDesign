@@ -1,0 +1,50 @@
+*** Traffic Controller System for a Junction ***
+
+Class Status
+State: stateList(R,Y,G)
+Behaviour
+getNextStauts(color){}
+
+---------------------------------------------
+
+Class TrafficLight
+State: status, statusMap<status, timer>, nextStatus
+Behaviour: Run(){
+    While(true) {
+        if (timeDiff == status[nextStatus]) {
+            this.status = nextStatus
+            nextStatus = Status.getNextStatus(nextStatus)
+        }
+    }
+}
+
+Behaviour: changeTime(color, duration) {
+    statusMap[color] = duration
+}
+
+---------------------------------------------
+
+Class Road
+State: TrafficLight, isBusy
+
+---------------------------------------------
+
+Class TrafficController
+State: roadList<Road>
+Behaviour: Start(){
+    for (road: roadList){
+        road.trafficLight.run()
+    }
+}
+
+Behaviour: monitor(){
+    While(true) {
+        for (road: roadList) {
+            if (road.isBusy()) {
+                road.trafficLight.changeTime(Green, longerTime)
+            } else {
+                road.trafficLight.changeTime(Green, normalTime)
+            }
+        }
+    }
+}

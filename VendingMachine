@@ -1,0 +1,47 @@
+*** vending Machine ***
+
+coinValue Enum(0.01, 0.05, 0.1, 0.25, 0.5, 1)
+
+class Coin
+state: coinValue
+
+Payment Enum(creditcard, coin)
+
+Class PaymentSystem
+Behaviour : pay(payment, amount, price) {
+    if (payment == creditcard) {
+        payment.balance -= price
+    } else {
+        change = amount - price
+        coinCombination = calChange(change)
+        return coinCombination
+    }
+}
+
+Behaviour:
+/**
+* @Param: the amount of change
+* @Return: the combination of different dimension coins[coinValue]
+*/
+calChange(amount) {
+    // calculate coin combination algorithm
+
+}
+
+
+---------------------------------------------
+
+Class VendingMachine
+State:  PriceMap<product, price>,  AmountMap<product, amount>
+Behaviour: selection(id) {
+    if (amountMap[id] > 0)
+        return priceMap[id]
+    else
+        print(sold out)
+}
+
+Behaviour checkout(id, payment, amount) {
+    PaymentSystem.pay(payment, amount, priceMap[id])
+    amountMap[id] -= 1
+    return change
+}

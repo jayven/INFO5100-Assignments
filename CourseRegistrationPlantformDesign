@@ -1,0 +1,77 @@
+*** Course Registration Platform ***
+
+Student can:
+1. login
+2. search for class base on parameters
+3. register class
+4. drop class
+5. return info if register finish
+
+---------------------------------------------
+
+Class: Student
+State: id, name, term, major
+
+---------------------------------------------
+
+Class: Course
+State: number, name, status, info, credit
+
+---------------------------------------------
+
+Class: CourseDB
+State: <List>Course courses
+Behaviours:
+getAvailableCourse(student.id, student.major, student.term, time){}
+updateCourse(id,course){}
+
+---------------------------------------------
+
+Class: loginSystem
+State: loginMap<id, password>
+Behavior: login(id, password){
+ if (password == loginMap[id]){
+    return true
+ } else {
+ return false
+ }
+}
+
+---------------------------------------------
+
+Class: CourseRegister
+State: CourseDB, CourseMap<StudentId, CourseList>, maxCredit, loginSystem
+
+Behaviour: signIn(id, password) {
+    loginSystem.login(id, password)
+}
+
+Behavior: search(searchParams){
+    List <Course> availableCourses = DB.getAvailableCourse(student.id, student.major, student.term, time)
+    return availableCourses
+}
+
+Behavior: registerCourse(id,course){
+    courseList = courseMap[id]
+    int creditSum
+
+    for (item: courseList) {
+        creditSum += item.credit
+    }
+
+    if (creditSum + course.credit <=  maxCredit) {
+        DB.updateCourse(id,course)
+        courseMap[id].add(course)
+        return true
+    } else {
+        return false
+    }
+}
+
+Behavior: dropCourse(id,course){
+    DB.updateCourse(course)
+    courseMap[id].remove(course)
+}
+
+
+

@@ -1,0 +1,95 @@
+*** Car Rental System ***
+
+Customers can:
+1. search for car base on parameters (location, cartype, duration...)
+2. rental car
+3. cancel car
+
+---------------------------------------------
+
+Class: Car
+State: brand, type, price, location, availableTime
+Behaviour: checkCarAvailability(duration,car){
+  // check availability of the car in a determined duration
+}
+
+---------------------------------------------
+
+Class: Customer
+State: id, name, Payment
+// searchParams: type,location,car,duration
+Behavior:
+
+Car searchCar(searchParams){
+  List<Cars> Cars = carRentalService.search(searchParams)
+  return car
+}
+Behaviour: rentalCar(id, car){
+  RentalDetails = carRentalService.rentalCar(id,car)
+}
+Behaviour: cancelCar(id){
+  carRentalService. cancelCar(id)
+}
+Behaviour: pay(car, duration, payment){
+    carRentalService. checkout(car, duration, payment)
+}
+---------------------------------------------
+
+Class: rentalServiceDB
+State: List<Car> cars
+
+Behaviour:
+getAvailableCars(type, location){
+    list<Car> res
+    for (i = 0; i < cars.size(); i++) {
+        if (cars[i].type == type && car[i].location == location
+           && cars[i].brand == brand && cars[i].avaTime.isEarlyThan( pickUpTime)){
+
+           res.add(car[i])
+         }
+    }
+    return res
+
+    // res = cars.filter{
+    //   it.type == type && it.location == location
+    // }
+}
+
+---------------------------------------------
+
+Class: carRentalService
+State: rentalServiceDB
+Behaviour: search(searchParams){
+  List<Car> availableCar = DB.getAvailableCars(searchParams)
+  availableCar
+}
+
+Behaviour: rentalCar(id, car) {
+    DB.updateCar(car, id)
+    confirmNum = generateConfirmNum()
+    return confirmNum
+}
+
+Behaviour: cancelCar(id) {
+    DB.updateCar(id)
+}
+
+Behaviour: checkout(car, duration, payment){
+     amount = car.price * duration
+     return payment.isPaySuccess(amount)
+}
+}
+
+---------------------------------------------
+
+Class: Payment
+State: cardValue
+Behaviour: isPaySuccess(amount){
+  if (cardValue >= amount) {
+    cardValue -= amount
+    return true
+  }
+  else
+   return false
+  }
+}

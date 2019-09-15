@@ -1,0 +1,92 @@
+*** Parking lot ***
+
+ParkingLot can
+        1. parking
+        2. calculate price
+
+---------------------------------------------
+
+Class : Vehicle
+State : vehicleType, licenceNumber
+Behaviour:
+pay(number){
+    payActivity(number)
+}
+
+---------------------------------------------
+
+Class : ParkingSpot
+State : spotType, spotStatus, ticket
+enum spotStatus {available, unavailable}
+Behavior:
+  Boolean isAvailable() {
+     return this.spotStatus == available
+  }
+Behaviour:
+  changeStatus(status) {
+    this.spotStatus = status
+  }
+Behaviour:
+  Boolean spotFit(vehicleType){
+    return this.spotType >= (vehicleType)
+  }
+
+---------------------------------------------
+
+Class : Ticket
+State: entryTime, exitTime, license
+
+---------------------------------------------
+
+Class: TicketSystem
+State: hourlyPrice
+Behaviour:
+ private float  calPrice(ticket) {
+    return hourlyPrice * (ticket.exitTime - ticket.entryTime)
+  }
+  getTicket(vehicle) {
+    Ticket ticket = new Ticket()
+    ticket.entryTime = Time.now()
+    ticket.license = vehicle.license
+    return ticket
+  }
+Behaviour:
+  float returnTicket(ticket) {
+    ticket.exitTime = Time.now()
+    return calPrice(ticket)
+  }
+
+---------------------------------------------
+
+Class : ParkingLots
+State: List<Vehicle> vehicleList, List<ParkingSpot> spotList, TicketSystem
+Behavior:
+   Boolean canPark(){
+    if (vehicleList.size() < spotList.size())
+        return true
+    else
+        return false
+    //return vehicleList.size() < spotList.size()
+  }
+Behaviour:
+  park(vehicle, spot) {
+    if (spot.isAvailable() && spot.spotFit(vehicle)) {
+       parkingActivity(spot, vehicle)
+    }
+  }
+Behaviour:
+  private parkingActivity(spot, vehicle) {
+     Ticket newTicket = this.ticketSystem.getTicket(vehicle)
+     spot.ticket = newTicket
+     spot.changeStatus(unavailable)
+     vehicleList.add(vehicle)
+  }
+Behaviour:
+  exit(vehicle, spot) {
+     spot.changeStatus(available)
+     vehicleList.remove(vehicle)
+     Ticket ticket = spot.ticket
+     vehicle.pay(this.ticketSystem.returnTicket(ticket))
+  }
+
+  }
