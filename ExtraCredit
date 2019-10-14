@@ -1,0 +1,19 @@
+B b = new B();
+List<Object> list = Arrays.asList(1,2,3);
+
+b.addAll(list);
+run public boolean addAll(Collection<Object> c) (Class B)     [B.addCount = 3; B.i = 3]
+run public boolean addAll(Collection<Object> c) (Class A)      [A.list = (); A.i = 0]
+run 	public boolean add(Object e) (Class B)              [B.addCount = 4; B.i = 3]
+run 	public boolean add(Object e) (Class A)              [A.list = (1); A.i = 0]
+run 	public boolean add(Object e) (Class B)              [B.addCount = 5; B.i = 3]
+run 	public boolean add(Object e) (Class A)              [A.list = (1->2); A.i = 0]
+run 	public boolean add(Object e) (Class B)              [B.addCount = 6; B.i = 3]
+run 	public boolean add(Object e) (Class A)              [A.list = (1->2->3); A.i = 0]
+
+System.out.println(b.getAddCount()+b.getI());
+run 	public int getAddCount() (Class B)
+run 	public int getI() (Class A)
+=> B.addCount + A.i = 6 + 0 = 6
+
+
