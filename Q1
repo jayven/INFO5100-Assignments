@@ -1,8 +1,0 @@
-Q1 Explain the difference between final and finally in Java 8.
-
-Final is a keyword, it is used to apply restriction on class, method and variable. Variable value with final keyword
-cannot be changed after they initialized. Final class can't be inherited and final method can't be overridden in the
-child classes
-
-Finally is a block and also a keyword, it is used to place important code, and it will be executed even if an exception
-is handled. It will executed after a try/catch block.
