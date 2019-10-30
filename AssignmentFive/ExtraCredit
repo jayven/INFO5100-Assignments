@@ -16,4 +16,3 @@ run 	public int getAddCount() (Class B)
 run 	public int getI() (Class A)
 => B.addCount + A.i = 6 + 0 = 6
 
-
