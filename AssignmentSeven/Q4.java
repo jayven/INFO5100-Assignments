@@ -71,7 +71,9 @@ public class Q4 {
             long sum = sum(arr);
             System.out.println("Sum: " + sum);
         }
-
-
+    }
+        public static void main(String[] args) throws IOException {
+        SumValue ans = new SumValue();
+        ans.main(args);
     }
 }
